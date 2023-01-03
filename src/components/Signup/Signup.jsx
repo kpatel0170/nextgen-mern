@@ -68,6 +68,7 @@ const Signup = () => {
 
   return (
     <form onSubmit={handleSubmit} className="signup-form">
+    <h1>SIGNUP</h1>
     <label htmlFor="username" className="signup-label">Username:</label>
     <input
         type="text"
@@ -77,7 +78,6 @@ const Signup = () => {
         className="signup-input"
     />
     {errors.username && <div className="signup-error">{errors.username}</div>}
-    <br />
     <label htmlFor="email" className="signup-label">Email:</label>
     <input
         type="email"
@@ -87,7 +87,6 @@ const Signup = () => {
         className="signup-input"
     />
     {errors.email && <div className="signup-error">{errors.email}</div>}
-    <br />
     <label htmlFor="password" className="signup-label">Password:</label>
     <input
         type="password"
@@ -97,7 +96,6 @@ const Signup = () => {
         className="signup-input"
     />
     {errors.password && <div className="signup-error">{errors.password}</div>}
-    <br />
     <label htmlFor="confirmPassword" className="signup-label">Confirm Password:</label>
     <input
         type="password"
@@ -107,11 +105,10 @@ const Signup = () => {
         className="signup-input"
     />
     {errors.confirmPassword && <div className="signup-error">{errors.confirmPassword}</div>}
-    <br />
     <button type="submit" className="signup-button">Sign Up</button>
     </form>
 
-  );
+  );  
 };
 
 export default Signup;

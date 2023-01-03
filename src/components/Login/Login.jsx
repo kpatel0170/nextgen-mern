@@ -100,7 +100,7 @@ const Login = () => {
       <div className="alt-login">
           <div className="google">
               <GoogleLogin className="blue"
-                  clientId="79474543031-tmjo35916ufn421ej3u1i2ljao2apr4s.apps.googleusercontent.com"
+                  clientId=""
                   buttonText="Login using Google"
                   onSuccess={onSuccess}
                   onFailure={onFailure}
