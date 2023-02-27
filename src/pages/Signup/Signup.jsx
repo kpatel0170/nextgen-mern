@@ -106,8 +106,9 @@ const Signup = () => {
     />
     {errors.confirmPassword && <div className="signup-error">{errors.confirmPassword}</div>}
     <button type="submit" className="signup-button">Sign Up</button>
+    <p>Already have an account?? <a href="/">Signup</a></p>
     </form>
-
+    
   );  
 };
 

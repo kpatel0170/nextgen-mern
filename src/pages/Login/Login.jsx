@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Login.css';
-import GoogleLogin from "react-google-login";
-import { gapi } from "gapi-script";
 
 const Login = () => {
   // Use the useState hook to create state variables for the form fields and errors
@@ -46,15 +44,7 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    function start() {
-        gapi.client.init({
-            clientId: "79474543031-tmjo35916ufn421ej3u1i2ljao2apr4s.apps.googleusercontent.com",
-            scope: ""
-        })
-    }
-    gapi.load('client: auth2', start)
-  });
+
   const onSuccess = e => {
     alert("User signed in")
     console.log(e)
@@ -94,24 +84,10 @@ const Login = () => {
       <button type="submit" className="login-button">
         Login
       </button>
+      <p>New to the platform?? <a href="/signup">Signup</a></p>
 
-      <p className="text">Or login using</p>
-
-      <div className="alt-login">
-          <div className="google">
-              <GoogleLogin className="blue"
-                  clientId=""
-                  buttonText="Login using Google"
-                  onSuccess={onSuccess}
-                  onFailure={onFailure}
-                  cookiePolicy={'single_host_origin'}
-                  isSignedIn={false} // alternative is true, which keeps the user signed in
-                  // icon={false}    // alt is true, and this puts the google logo on your button, but I don't like it
-                  theme="dark"  // alternative is light, which is white
-              />
-          </div>
-      </div>
     </form>
+
   );
 };
 
