@@ -6,6 +6,7 @@ var logger = require('./utils/logger');
 const routes = require("./routes");
 
 const app = express();
+app.use(express.json());
 
 const port = process.env.PORT;
 app.listen(port, async () => {
