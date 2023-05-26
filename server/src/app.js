@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const connect = require('./utils/connect');
 var logger = require('./utils/logger');
-const routes = require("./routes");
+const routes = require("./routes/routes");
 
 const app = express();
 app.use(express.json());
