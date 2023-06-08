@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router();
-const { createUserHandler } = require("../controller/user.controller");
-const validateResource = require("../middleware/validateResource");
-const { createUserSchema } = require("../schema/user.schema");
+const userRouter = express.Router();
+const { getUsers, getUserById, updateUser, deleteUser } = require("../controller/user.controller");
 
 
-router.post("/signup", validateResource(createUserSchema), createUserHandler);
-// router.post("/login", signIn);
-// router.patch("/:userID", updateUser);
+userRouter.get("/", getUsers);
+userRouter.get("/:id", getUserById);
+userRouter.patch("/:id", updateUser);
+userRouter.delete("/:id", deleteUser);
 
-module.exports = router;
+
+module.exports = userRouter;
