@@ -5,8 +5,8 @@ const userValidation = require('../validation/user.validation');
 const userController = require('../controller/user.controller');
 
 userRouter.get('/', userController.getUsers);
-userRouter.get('/:id', userController.getUserById);
-userRouter.patch('/:id', userController.updateUser);
-userRouter.delete('/:id', userController.deleteUser);
+userRouter.get('/:id', validate(userValidation.getUser), userController.getUserById);
+userRouter.patch('/:id', validate(userValidation.updateUser), userController.updateUser);
+userRouter.delete('/:id', validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = userRouter;
