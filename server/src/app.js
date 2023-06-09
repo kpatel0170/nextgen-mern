@@ -1,17 +1,20 @@
 const express = require('express');
-const dotenv = require("dotenv");
-dotenv.config();
-const connect = require('./utils/connect');
-var logger = require('./utils/logger');
-const routes = require("./routes/routes");
+const cors = require('cors');
+const logger = require('./config/logger');
+const routes = require('./routes/routes');
 
 const app = express();
+
+// parse json request body
 app.use(express.json());
 
-const port = process.env.PORT;
-app.listen(port, async () => {
-    logger.info(`Server listening on port ${port}`);
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
 
-    await connect();
-    routes(app);
-});
+// enable cors
+app.use(cors());
+
+// routes
+app.use('/api', routes);
+
+module.exports = app;

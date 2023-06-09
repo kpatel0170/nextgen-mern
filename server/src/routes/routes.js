@@ -1,10 +1,35 @@
-const express = require("express");
+const express = require('express');
+const authRoute = require('./auth.route.js');
+const userRoute = require('./user.route.js');
+const docsRoute = require('./docs.route.js');
+
 const router = express.Router();
-const userRouter = require("./user.router");
 
-function routes(app) {
-    app.get("/healthcheck", (req, res) => res.sendStatus(200));
-    app.use("/api/users", userRouter);
-}
+const defaultRoutes = [
+  {
+    path: '/auth',
+    route: authRoute,
+  },
+  {
+    path: '/users',
+    route: userRoute,
+  },
+];
 
-module.exports = routes;
+const devRoutes = [
+  // routes available only in development mode
+  {
+    path: '/docs',
+    route: docsRoute,
+  },
+];
+
+defaultRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
+
+devRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
+
+module.exports = router;
