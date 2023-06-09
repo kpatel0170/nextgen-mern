@@ -1,6 +1,6 @@
-const { omit } = require("lodash");
-const userService = require("../service/user.service");
-const logger = require("../utils/logger");
+const { omit } = require('lodash');
+const userService = require('../service/user.service');
+const logger = require('../config/logger');
 
 // Create a new user
 exports.createUser = async (req, res) => {
@@ -10,7 +10,7 @@ exports.createUser = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
-        error: "Missing required fields: name, email, password",
+        error: 'Missing required fields: name, email, password',
       });
     }
 
@@ -57,7 +57,7 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const userData = omit(req.body, ["password"]); // Exclude password from update
+    const userData = omit(req.body, ['password']); // Exclude password from update
 
     const updatedUser = await userService.updateUser(id, userData);
 

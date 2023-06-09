@@ -1,18 +1,16 @@
-const { omit } = require("lodash");
-const authService = require("../service/auth.service");
-const logger = require("../utils/logger");
+const { omit } = require('lodash');
+const authService = require('../service/auth.service');
+const logger = require('../config/logger');
 
 exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Missing required fields: name, email, password",
-        });
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: name, email, password',
+      });
     }
 
     const user = await authService.createUser(name, email, password);
@@ -28,12 +26,10 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Missing required fields: email, password",
-        });
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: email, password',
+      });
     }
 
     const user = await authService.loginUser(email, password);

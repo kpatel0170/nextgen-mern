@@ -1,4 +1,4 @@
-const UserModel = require("../models/user.model");
+const UserModel = require('../models/user.model');
 
 const userService = {
   createUser: async (name, email, password) => {
@@ -6,7 +6,7 @@ const userService = {
       // Check if the email is already registered
       const existingUser = await UserModel.findOne({ email: email });
       if (existingUser) {
-        throw new Error("Email is already registered");
+        throw new Error('Email is already registered');
       }
 
       // Create the user
@@ -25,7 +25,7 @@ const userService = {
   getUsers: async () => {
     try {
       const users = await UserModel.find();
-      return users.map(user => user.toJSON());
+      return users.map((user) => user.toJSON());
     } catch (error) {
       throw new Error(error.message);
     }
@@ -45,7 +45,9 @@ const userService = {
 
   updateUser: async (id, userData) => {
     try {
-      const user = await UserModel.findByIdAndUpdate(id, userData, { new: true });
+      const user = await UserModel.findByIdAndUpdate(id, userData, {
+        new: true,
+      });
       if (!user) {
         throw new Error(`User not found with ID: ${id}`);
       }
