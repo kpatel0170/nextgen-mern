@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/app.js",
-    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
     "lint": "eslint .",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js"
@@ -21,6 +21,8 @@
     "lodash": "^4.17.21",
     "logger": "^0.0.1",
     "mongoose": "^7.1.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
     "winston": "^3.8.2",
     "zod": "^3.21.4"
   },

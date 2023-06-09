@@ -2,7 +2,7 @@ const { omit } = require('lodash');
 const authService = require('../service/auth.service');
 const logger = require('../config/logger');
 
-exports.registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -21,7 +21,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-exports.loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -38,4 +38,9 @@ exports.loginUser = async (req, res) => {
     logger.error(error.message);
     return res.status(409).json({ status: false, error: error.message });
   }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
 };

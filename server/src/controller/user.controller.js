@@ -3,7 +3,7 @@ const userService = require('../service/user.service');
 const logger = require('../config/logger');
 
 // Create a new user
-exports.createUser = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -23,7 +23,7 @@ exports.createUser = async (req, res) => {
 };
 
 // Get all users
-exports.getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const users = await userService.getUsers();
     return res.status(200).json({ status: true, data: users });
@@ -34,7 +34,7 @@ exports.getUsers = async (req, res) => {
 };
 
 // Get a single user by ID
-exports.getUserById = async (req, res) => {
+const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await userService.getUserById(id);
@@ -54,7 +54,7 @@ exports.getUserById = async (req, res) => {
 };
 
 // Update a user
-exports.updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const userData = omit(req.body, ['password']); // Exclude password from update
@@ -76,7 +76,7 @@ exports.updateUser = async (req, res) => {
 };
 
 // Delete a user
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedUser = await userService.deleteUser(id);
@@ -93,4 +93,12 @@ exports.deleteUser = async (req, res) => {
     logger.error(error.message);
     return res.status(500).json({ status: false, error: error.message });
   }
+};
+
+module.exports = {
+  createUser,
+  getUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
 };
