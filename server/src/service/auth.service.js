@@ -4,16 +4,16 @@ const UserModel = require('../models/user.model');
 const createUser = async (name, email, password) => {
   try {
     // Check if the email is already registered
-    const existingUser = await UserModel.findOne({ email: email });
+    const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
       throw new Error('Email is already registered');
     }
 
     // Create the user
     const user = await new UserModel({
-      name: name,
-      email: email,
-      password: password,
+      name,
+      email,
+      password,
     });
     await user.save();
     const sanitizedUser = omit(user.toJSON(), 'password');
@@ -26,7 +26,7 @@ const createUser = async (name, email, password) => {
 const loginUser = async (email, password) => {
   try {
     // Check if the email is already registered
-    const existingUser = await UserModel.findOne({ email: email });
+    const existingUser = await UserModel.findOne({ email });
     if (!existingUser) {
       throw new Error('Email is not registered');
     }

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const userRouter = express.Router();
 const validate = require('../middleware/validate');
 const userValidation = require('../validation/user.validation');
