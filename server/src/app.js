@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const logger = require('./config/logger');
+const helmet = require('helmet');
 const routes = require('./routes/routes');
 
 const app = express();
@@ -13,6 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // enable cors
 app.use(cors());
+
+// secure apps by setting various HTTP headers
+app.use(helmet());
 
 // routes
 app.use('/api', routes);

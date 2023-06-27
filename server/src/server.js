@@ -1,12 +1,15 @@
-const app = require('./app');
-const connect = require('./utils/connect');
-const logger = require('./config/logger');
 const dotenv = require('dotenv');
+const app = require('./app');
+const connect = require('./config/connect');
+const logger = require('./config/logger');
+
 dotenv.config();
 
 const port = process.env.PORT;
 
 let server;
+
+// Connect to MongoDB and start the server
 connect()
   .then(() => {
     server = app.listen(port, () => {

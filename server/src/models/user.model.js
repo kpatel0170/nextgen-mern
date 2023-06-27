@@ -14,13 +14,13 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre('save', async function (next) {
-  let user = this;
+userSchema.pre('save', async (next) => {
+  const user = this;
 
   if (!user.isModified('password')) {
     return next();
   }
-  const saltWorkFactor = parseInt(process.env.SALT_WORK_FACTOR);
+  const saltWorkFactor = parseInt(process.env.SALT_WORK_FACTOR, 10);
   const salt = await bcrypt.genSalt(saltWorkFactor);
 
   const hash = await bcrypt.hashSync(user.password, salt);
@@ -30,10 +30,10 @@ userSchema.pre('save', async function (next) {
   return next();
 });
 
-userSchema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = async (candidatePassword) => {
   const user = this;
 
-  return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+  return bcrypt.compare(candidatePassword, user.password).catch(() => false);
 };
 
 const UserModel = mongoose.model('User', userSchema);

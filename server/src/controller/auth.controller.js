@@ -1,4 +1,3 @@
-const { omit } = require('lodash');
 const authService = require('../service/auth.service');
 const logger = require('../config/logger');
 
