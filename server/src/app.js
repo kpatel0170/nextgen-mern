@@ -13,6 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // enable cors
 app.use(cors());
+const corsOpts = {
+  origin: '*',
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+};
+app.use(cors(corsOpts));
 
 // secure apps by setting various HTTP headers
 app.use(helmet());

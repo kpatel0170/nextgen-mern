@@ -14,12 +14,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function (next) {
   const user = this;
 
-  if (!user.isModified('password')) {
-    return next();
-  }
   const saltWorkFactor = parseInt(process.env.SALT_WORK_FACTOR, 10);
   const salt = await bcrypt.genSalt(saltWorkFactor);
 
@@ -30,9 +27,8 @@ userSchema.pre('save', async (next) => {
   return next();
 });
 
-userSchema.methods.comparePassword = async (candidatePassword) => {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   const user = this;
-
   return bcrypt.compare(candidatePassword, user.password).catch(() => false);
 };
 

@@ -19,6 +19,9 @@ const defaultRoutes = [
 const devRoutes = [
   // routes available only in development mode
   {
+    // Path: server\src\routes\routes.js
+    // Compare this snippet from server\src\routes\docs.route.js:
+
     path: '/docs',
     route: docsRoute,
   },

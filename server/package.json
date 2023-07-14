@@ -23,6 +23,7 @@
     "joi": "^17.9.2",
     "lodash": "^4.17.21",
     "logger": "^0.0.1",
+    "moment-timezone": "^0.5.43",
     "mongoose": "^7.1.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3",
