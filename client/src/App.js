@@ -26,6 +26,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
+import Users from "./pages/Users.js";
  
 const App = () => {
  return (
@@ -36,6 +37,8 @@ const App = () => {
        <Route exact path="/" element={<RecordList />} />
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/create" element={<Create />} />
+       <Route path="/users" element={<Users />} />
+       
      </Routes>
       </BrowserRouter>
    </div>
