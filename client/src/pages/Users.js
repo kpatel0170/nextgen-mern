@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AddUser from "../components/AddUser";
 import EditUser from "../components/EditUser";
+import Sidebar from "../components/Sidebar";
 
 function Users() {
   const [id, setId] = useState("");
@@ -70,7 +71,8 @@ function Users() {
 
   return (
     <>
-      <div className="px-3">
+      <Sidebar />
+      <div className="px-3 mt-20 ml-[30%] ">
         <div className="relative overflow-x-auto  ">
           <div className="flex items-center justify-between py-4 bg-white ">
             <div>
@@ -138,7 +140,10 @@ function Users() {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <tr key={user._id} className="bg-white border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr
+                  key={user._id}
+                  className="bg-white border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
                   <td className="w-4 p-4">
                     <div className="flex items-center">
                       <input

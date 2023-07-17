@@ -22,7 +22,7 @@ import React from "react";
  
 // We use Route in order to define the different routes of our application
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar.jsx";
+// import Navbar from "./components/Navbar/Navbar.jsx";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
@@ -31,7 +31,6 @@ import Users from "./pages/Users.js";
 const App = () => {
  return (
    <div>
-     <Navbar />
      <BrowserRouter>
      <Routes>
        <Route exact path="/" element={<RecordList />} />
