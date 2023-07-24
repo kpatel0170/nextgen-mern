@@ -177,7 +177,7 @@ function Users() {
                       data-modal-show="editUserModal"
                       className="font-medium text-blue-600  hover:underline"
                     >
-                      Edit user
+                      Edit
                     </a>
                   </td>
 
