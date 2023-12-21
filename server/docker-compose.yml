@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: unless-stopped
+    ports:
+      - "27017"
+    env_file:
+      - ./.env
+    volumes:
+      - ./mongo-data:/data/db
+
+  node-back:
+    build: .
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3001:3001"
