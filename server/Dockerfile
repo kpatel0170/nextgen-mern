@@ -1,22 +1,19 @@
-
-# Use an official Node.js runtime as the base image
-FROM node:latest
-
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Copy package.json and package-lock.json (if available)
-COPY package.json ./
-
-# Install app dependencies
-RUN npm install
-
-# Copy all the app source code to the container
+FROM node:latest AS base-dev
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
 COPY . .
 
-ENV PORT=3001
-# Expose the port your app runs on
-EXPOSE $PORT
+FROM node:latest AS base-prod
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
 
-# Define the command to run your app
-CMD ["npm", "run", "dev"]
+FROM base-dev AS development
+CMD ["node", "-r", "./src/config/tracing.cjs", "--watch", "bin/www.js"]
+
+FROM gcr.io/distroless/nodejs:18 AS production
+WORKDIR /app
+COPY --from=base-prod /app /app
+CMD ["bin/www.js"]
