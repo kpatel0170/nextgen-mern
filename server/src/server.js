@@ -5,56 +5,72 @@ import app from "./app.js";
 import connectDB from "./config/connectDB.js";
 import logger from "./config/logger.js";
 import config from "./config/config.js";
+import { createTerminus } from "@godaddy/terminus";
+import http from "node:http";
 
-let server;
-const isProduction = config.env === "production";
+const port = config.port;
+const isProduction = config.env === 'production';
 
-connectDB()
-  .then(() => {
-    if (isProduction) {
-      app.listen(config.port, () =>
-        logger.info(`Server started on port ${config.port}`)
-      );
-    } else {
-      // const httpsOptions = {
-      //   key: readFileSync(resolve(__dirname, '../security/cert.key')),
-      //   cert: readFileSync(resolve(__dirname, '../security/cert.pem')),
-      // };
+const server = http.createServer(app)
 
-      server = app.listen(config.port, () => {
-        logger.info(`HTTPS server running at ${config.port}`);
-        // import all_routes from 'express-list-endpoints';
-        // console.log(all_routes(app));
-      });
-    }
+export default async function main() {
+  try {
+    await startServer()
+  } catch (err) {
+    logger.error("No server", err)
+    process.exit(1)
+  }
+}
+
+async function startServer() {
+  setupErrorHandling()
+  await connectDB()
+
+  createTerminus(server, {
+    onSignal,
+    onShutdown,
+    logger: (msg, err) => logger.error({ msg, err }),
+    healthChecks: {
+      '/health': onHealthCheck,
+      __unsafeExposeStackTraces: !isProduction,
+    },
   })
-  .catch((e) => {
-    logger.error(e);
-    process.exit(1);
-  });
 
-const exitHandler = () => {
-  if (server) {
-    server.close(() => {
-      logger.info("Server closed");
-      process.exit(1);
-    });
-  } else {
-    process.exit(1);
-  }
-};
 
-const unexpectedErrorHandler = (error) => {
-  logger.error(`Error: ${error}`);
-  exitHandler();
-};
+  server.listen(port, onListening)
+}
 
-process.on("uncaughtException", unexpectedErrorHandler);
-process.on("unhandledRejection", unexpectedErrorHandler);
+function onListening() {
+  logger.info({ msg: `listening on http://localhost:${port}`, port })
+}
 
-process.on("SIGTERM", () => {
-  logger.info("SIGTERM received");
-  if (server) {
-    server.close();
-  }
-});
+async function onSignal() {
+  logger.info('server is starting cleanup')
+  database
+    .disconnect()
+    .then(() => logger.info('database disconnected'))
+    .catch(err => logger.error({ err, msg: 'error during disconnection' }))
+}
+
+async function onShutdown() {
+  logger.info('cleanup finished, server is shutting down')
+}
+
+async function onHealthCheck() {
+  await database.ping()
+}
+
+
+function setupErrorHandling() {
+  process.on('unhandledRejection', (err, promise) => {
+    logger.error({ err, msg: `Unhandled Rejection at: ${promise}` })
+    // send error to your error tracking software here
+    process.exit(1)
+  })
+
+  process.on('uncaughtException', (err, origin) => {
+    logger.error({ err, msg: `Uncaught Exception: ${err.message} at: ${origin}` })
+    // send error to your error tracking software here
+    process.exit(1)
+  })
+}

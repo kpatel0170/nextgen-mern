@@ -14,6 +14,8 @@ import ApiError from "./utils/ApiError.js";
 import { HTTP_CODES } from "./config/constants.js";
 import googleStrategy from "./config/passport/googleStrategy.js";
 import jwtStrategy from "./config/passport/jwtStrategy.js";
+import metricsMiddleware from "./middleware/metrics.js";
+import addTraceIdMiddleware from "./middleware/traceId.js";
 
 const app = express();
 
@@ -54,6 +56,12 @@ app.use(helmet());
 
 // gzip compression
 app.use(compression());
+
+// add traceId to request
+app.use(addTraceIdMiddleware);
+
+// add metrics
+app.use(metricsMiddleware);
 
 // Passport middleware
 app.use(passport.initialize());
