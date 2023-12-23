@@ -36,7 +36,12 @@ const envVarsSchema = Joi.object({
   GOOGLE_CLIENT_SECRET: Joi.string().description("Google Client Secret"),
   GOOGLE_CALLBACK_URL: Joi.string().description("Google Callback URL"),
   CLIENT_URL: Joi.string().description("Client URL for development"),
-  SERVER_URL: Joi.string().description("Server URL for development")
+  SERVER_URL: Joi.string().description("Server URL for development"),
+  OTEL_ENABLED: Joi.boolean().description("OpenTelemetry enabled"),
+  OTEL_SERVICE_NAME: Joi.string().description("OpenTelemetry service name"),
+  OTEL_EXPORTER_JAEGER_ENDPOINT: Joi.string().description(
+    "OpenTelemetry Jaeger exporter endpoint"
+  )
 }).unknown();
 
 const { value: envVars, error } = envVarsSchema
@@ -86,6 +91,11 @@ const config = {
   siteUrls: {
     clientURL: envVars.CLIENT_URL || "http://localhost:3000",
     serverURL: envVars.SERVER_URL || "http://localhost:3001"
+  },
+  openelementry: {
+    enabled: envVars.OTEL_ENABLED || false,
+    serviceName: envVars.OTEL_SERVICE_NAME,
+    endpoint: envVars.OTEL_EXPORTER_JAEGER_ENDPOINT
   }
 };
 
