@@ -16,6 +16,8 @@ import googleStrategy from "./config/passport/googleStrategy.js";
 import jwtStrategy from "./config/passport/jwtStrategy.js";
 import metricsMiddleware from "./middleware/metrics.js";
 import addTraceIdMiddleware from "./middleware/traceId.js";
+import AdminJS from 'adminjs'
+import AdminJSExpress from '@adminjs/express'
 
 const app = express();
 
@@ -79,6 +81,12 @@ app.get("/ping", (req, res) => {
   });
 });
 
+
+const admin = new AdminJS({})
+
+const adminRouter = AdminJSExpress.buildRouter(admin)
+app.use("/admin", adminRouter)
+
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
   next(new ApiError(HTTP_CODES.NOT_FOUND, "Not found"));
@@ -86,7 +94,6 @@ app.use((req, res, next) => {
 
 // error handler, send stacktrace only during development
 app.use(errorHandler);
-
 
 // const BASE_URL = "/api/v1";
 
