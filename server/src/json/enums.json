@@ -1,0 +1,54 @@
+{
+  "HEADER_PARAMS": {
+    "CDN_LOOP": "cdn-loop",
+    "CF_CONNECTING_IP": "cf-connecting-ip",
+    "CF_IP_COUNTRY": "cf-ipcountry",
+    "CF_REQUEST_ID": "cf-request-id",
+    "CF_VISITOR": "cf-visitor",
+    "HOST": "host",
+    "VERSION_APP": "x-version-app",
+    "VERSION_SERVER": "x-version-server"
+  },
+  "HTTP_CODES": {
+    "BAD_REQUEST": 400,
+    "DUPLICATE_VALUE": 409,
+    "FORBIDDEN": 403,
+    "INTERNAL_SERVER_ERROR": 500,
+    "METHOD_NOT_ALLOWED": 405,
+    "MOVED_PERMANENTLY": 301,
+    "NOT_ACCEPTABLE": 406,
+    "NOT_FOUND": 404,
+    "NO_CONTENT_FOUND": 204,
+    "OK": 200,
+    "PERMANENT_REDIRECT": 308,
+    "UNAUTHORIZED": 401,
+    "UPGRADE_REQUIRED": 426,
+    "VALIDATION_ERROR": 422
+  },
+  "GENERAL": {
+    "name": "GENERAL",
+    "text": "General"
+  },
+  "OAUTH2_GRANT_TYPE": {
+    "AUTHORIZATION_CODE": "authorization_code",
+    "CLIENT_CREDENTIALS": "client_credentials"
+  },
+  "USER_STATUS": {
+    "ACTIVE": "active",
+    "BLOCKED": "blocked",
+    "DISABLED": "disabled",
+    "INACTIVE": "inactive",
+    "INVITED": "invited",
+    "UNBLOCKED": "unblocked"
+  },
+  "USER_TYPE": {
+    "USER": "user",
+    "ADMIN": "admin",
+    "SELLER": "seller"
+  },
+  "ROLES": {
+    "USER": [],
+    "ADMIN": ["getUsers", "manageUsers"],
+    "SELLER": ["sellItems", "manageInventory"]
+  }
+}
