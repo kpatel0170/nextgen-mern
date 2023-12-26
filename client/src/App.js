@@ -27,16 +27,20 @@ import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import Users from "./pages/Users.js";
+import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
+import Layout from "./containers/Layout";
  
 const App = () => {
  return (
    <div>
      <BrowserRouter>
+     <AccessibleNavigationAnnouncer />
      <Routes>
        <Route exact path="/" element={<RecordList />} />
        <Route path="/edit/:id" element={<Edit />} />
        <Route path="/create" element={<Create />} />
-       <Route path="/users" element={<Users />} />
+       {/* <Route path="/users" element={<Users />} /> */}
+       <Route path="/app" element={<Layout />} />
        
      </Routes>
       </BrowserRouter>
