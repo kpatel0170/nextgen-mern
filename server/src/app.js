@@ -22,7 +22,7 @@ import AdminJSExpress from '@adminjs/express'
 const app = express();
 
 // parse json request body
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 
 // manage sessions
 app.use(
@@ -39,6 +39,7 @@ app.use(morgan("combined"));
 app.use(cors());
 const corsOpts = {
   origin: "*",
+  credentials: true,
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"]
 };
 app.use(cors(corsOpts));
@@ -73,6 +74,9 @@ jwtStrategy(passport);
 
 // routes
 app.use("/api", routes);
+
+// serve static assets if in production
+app.use("/api/static", express.static(path.join(__dirname, "../public")));
 
 // simple route
 app.get("/ping", (req, res) => {
