@@ -18,14 +18,14 @@ const register = {
   body: Joi.object().keys({
     name: Joi.string().required().label("Name"),
     email: Joi.string().email().required(),
-    password: passwordSchema,
+    password: passwordSchema
   })
 };
 
 const login = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: passwordSchema,
+    password: passwordSchema
   })
 };
 

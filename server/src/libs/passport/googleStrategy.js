@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import logger from "../logger.js";
-import config from "../config.js";
+import config from "../../config/config.js";
 
 import User from "../../models/user.js";
 

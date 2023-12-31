@@ -1,16 +1,16 @@
-import setupTestDB from '../../utils/setupTestDB.js';
-import Token from '../../../src/models/token.js'; 
+import setupTestDB from "../../utils/setupTestDB.js";
+import Token from "../../../src/models/token.js";
 
-describe('Token Model Tests', () => {
-    setupTestDB();
+describe("Token Model Tests", () => {
+  setupTestDB();
 
-  test('should create a new token', async () => {
+  test("should create a new token", async () => {
     const tokenData = {
-      token: 'sampletoken123',
+      token: "sampletoken123",
       user: mongoose.Types.ObjectId(),
-      type: 'refreshToken',
-      expires: new Date('2024-12-31'),
-      blacklisted: false,
+      type: "refreshToken",
+      expires: new Date("2024-12-31"),
+      blacklisted: false
     };
 
     const token = await Token.create(tokenData);
@@ -23,13 +23,13 @@ describe('Token Model Tests', () => {
     // Add more assertions as needed to validate the created token
   });
 
-  test('should not create a token without required fields', async () => {
+  test("should not create a token without required fields", async () => {
     const incompleteTokenData = {
       // Incomplete data without required fields
       // Add a partial set of required fields here to test validation
-      token: 'sampletoken123',
-      type: 'resetPasswordToken',
-      expires: new Date('2024-12-31'),
+      token: "sampletoken123",
+      type: "resetPasswordToken",
+      expires: new Date("2024-12-31")
     };
 
     let error;
@@ -41,7 +41,7 @@ describe('Token Model Tests', () => {
     }
 
     expect(error).toBeDefined();
-    expect(error.name).toBe('ValidationError'); // Assuming Mongoose throws a ValidationError for missing fields
+    expect(error.name).toBe("ValidationError"); // Assuming Mongoose throws a ValidationError for missing fields
     // Add more specific assertions based on your validation requirements
   });
 

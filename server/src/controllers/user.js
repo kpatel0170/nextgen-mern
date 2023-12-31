@@ -1,9 +1,11 @@
 // import logger from "../config/logger";
-import userService from "../service/userService.js";
+import UserService from "../services/userService.js";
 import catchAsync from "../utils/catchAsync.js";
 import ApiError from "../utils/ApiError.js";
 import pick from "../utils/pick.js";
 import { HTTP_CODES } from "../config/constants.js";
+
+const userService = new UserService();
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);

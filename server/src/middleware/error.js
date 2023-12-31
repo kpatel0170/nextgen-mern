@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
-import logger from "../config/logger.js";
+import logger from "../libs/logger.js";
 import ApiError from "../utils/ApiError.js";
 
 import { HTTP_CODES } from "../config/constants.js";
@@ -20,7 +20,6 @@ export const errorConverter = (err, req, res, next) => {
 };
 
 export const errorHandler = (err, req, res, next) => {
-
   const statusCode = err.statusCode || HTTP_CODES.INTERNAL_SERVER_ERROR;
   const message = err.message || HTTP_CODES[statusCode];
 

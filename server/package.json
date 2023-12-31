@@ -17,7 +17,10 @@
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "compose:up": "docker-compose --profile o11y up",
+    "compose:down": "docker-compose down -v",
+    "compose:remove": "docker-compose down -v --rmi all"
   },
   "lint-staged": {
     "**/**/*.js": "eslint --fix",
@@ -31,6 +34,7 @@
     "@adminjs/mongoose": "^3.0.1",
     "@godaddy/terminus": "^4.12.1",
     "@opentelemetry/api": "^1.7.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.40.2",
     "@opentelemetry/exporter-trace-otlp-http": "^0.46.0",
     "@opentelemetry/instrumentation": "^0.46.0",
     "@opentelemetry/sdk-trace-node": "^1.19.0",

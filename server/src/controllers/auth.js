@@ -1,9 +1,14 @@
-import authService from "../service/authService.js";
-import userService from "../service/userService.js";
-import tokenService from "../service/tokenService.js";
-import emailService from "../service/emailService.js";
+import AuthService from "../services/authService.js";
+import UserService from "../services/userService.js";
+import TokenService from "../services/tokenService.js";
+import EmailService from "../services/emailService.js";
 import catchAsync from "../utils/catchAsync.js";
 import { HTTP_CODES, AUTH_MESSAGES } from "../config/constants.js";
+
+const authService = new AuthService();
+const userService = new UserService();
+const tokenService = new TokenService();
+const emailService = new EmailService();
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);

@@ -1,5 +1,5 @@
 import { HTTP_CODES, AUTH_MESSAGES } from "../../../src/config/constants";
-import { auth } from "../../../src/middleware/auth.js"; 
+import { auth } from "../../../src/middleware/auth.js";
 
 describe("Auth Middleware Tests", () => {
   let mockRequest;
