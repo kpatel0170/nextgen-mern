@@ -6,18 +6,18 @@ import passport from "passport";
 import bodyParser from "body-parser";
 import session from "express-session";
 import compression from "compression";
-import routes from "./routes/api.js";
-import { errorHandler } from "./middleware/error.js";
+import AdminJS from "adminjs";
+import AdminJSExpress from "@adminjs/express";
+import routes from "../routes/api.js";
+import { errorHandler } from "../middleware/error.js";
 
-import config from "./config/config.js";
-import ApiError from "./utils/ApiError.js";
-import { HTTP_CODES } from "./config/constants.js";
-import googleStrategy from "./config/passport/googleStrategy.js";
-import jwtStrategy from "./config/passport/jwtStrategy.js";
-import metricsMiddleware from "./middleware/metrics.js";
-import addTraceIdMiddleware from "./middleware/traceId.js";
-import AdminJS from 'adminjs'
-import AdminJSExpress from '@adminjs/express'
+import config from "../config/config.js";
+import ApiError from "../utils/ApiError.js";
+import { HTTP_CODES } from "../config/constants.js";
+import googleStrategy from "./passport/googleStrategy.js";
+import jwtStrategy from "./passport/jwtStrategy.js";
+import metricsMiddleware from "../middleware/metrics.js";
+import addTraceIdMiddleware from "../middleware/traceId.js";
 
 const app = express();
 
@@ -56,6 +56,12 @@ app.use(bodyParser.json());
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
+// Use helmet to secure Express headers
+app.use(helmet.frameguard());
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.use(helmet.ieNoOpen());
+app.disable("x-powered-by");
 
 // gzip compression
 app.use(compression());
@@ -72,11 +78,22 @@ app.use(passport.session());
 googleStrategy(passport);
 jwtStrategy(passport);
 
+// Showing stack errors
+app.set("showStackError", true);
+
+// Limit request from the same API  (expree-rate-limit)
+// const limiter = rateLimit({
+//   max: 150,
+//   windowMs: 60 * 60 * 1000,
+//   message: 'Too Many Request from this IP, please try again in an hour'
+// });
+// app.use('/api', limiter);
+
 // routes
 app.use("/api", routes);
 
 // serve static assets if in production
-app.use("/api/static", express.static(path.join(__dirname, "../public")));
+// app.use("/api/static", express.static(path.join(__dirname, "../public")));
 
 // simple route
 app.get("/ping", (req, res) => {
@@ -85,11 +102,10 @@ app.get("/ping", (req, res) => {
   });
 });
 
+const admin = new AdminJS({});
 
-const admin = new AdminJS({})
-
-const adminRouter = AdminJSExpress.buildRouter(admin)
-app.use("/admin", adminRouter)
+const adminRouter = AdminJSExpress.buildRouter(admin);
+app.use("/admin", adminRouter);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

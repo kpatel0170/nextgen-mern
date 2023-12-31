@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import authController from "../controller/auth.js";
+import authController from "../controllers/auth.js";
 import authValidation from "../validation/auth.js";
 import validate from "../middleware/validate.js";
 import authMiddleware from "../middleware/auth.js";

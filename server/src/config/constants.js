@@ -81,7 +81,7 @@ export const AUTH_MESSAGES = {
   INVALID_PHONE: "Sorry! The specified phone number is invalid.",
   INVALID_TOKEN_VERIFICATION: "Sorry! The verification token is invalid.",
   INVALID_LOGIN: "Invalid phone number or password",
-  USER_NOT_FOUND: "Sorry! The requested user could not be found.",
+  USER_NOT_FOUND: "Sorry! The requested user could not be found."
 };
 
 export const ADDRESS_MESSAGES = {

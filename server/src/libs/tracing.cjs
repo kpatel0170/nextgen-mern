@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { NodeTracerProvider } = require("@opentelemetry/sdk-trace-node");
 const { NodeHttpTraceExporter } = require("@opentelemetry/exporter-trace-otlp-http");
 const { registerInstrumentations } = require("@opentelemetry/instrumentation");
@@ -13,6 +14,7 @@ async function initializeTracing() {
     });
 
     const provider = new NodeTracerProvider();
+    // eslint-disable-next-line no-undef
     provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
     provider.register();
 

@@ -1,6 +1,10 @@
-import { APIError } from '~/utils/APIError';
-import logger from '~/utils/logger';
-import { invoicePaymentFailed, invoicePaymentSuccess, trialWillEnd } from '../user/plans-user.service';
+import { APIError } from "~/utils/APIError";
+import logger from "~/utils/logger";
+import {
+  invoicePaymentFailed,
+  invoicePaymentSuccess,
+  trialWillEnd
+} from "../user/plans-user.service";
 
 export async function webhookStripe(req, res) {
   let event;
@@ -9,17 +13,17 @@ export async function webhookStripe(req, res) {
   } catch (err) {
     logger.error(err);
     res.status(400).send(`Webhook Error: ${err.message}`);
-    throw new APIError('Webhook Error', 400);
+    throw new APIError("Webhook Error", 400);
   }
 
   switch (event.type) {
-    case 'invoice.payment_succeeded':
+    case "invoice.payment_succeeded":
       invoicePaymentSuccess(event.data.object);
       break;
-    case 'invoice.payment_failed':
+    case "invoice.payment_failed":
       invoicePaymentFailed(event.data.object);
       break;
-    case 'customer.subscription.trial_will_end':
+    case "customer.subscription.trial_will_end":
       trialWillEnd(event.data.object);
       break;
     default:

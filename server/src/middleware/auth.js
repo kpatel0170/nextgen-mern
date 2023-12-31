@@ -2,7 +2,11 @@
 /* eslint-disable indent */
 import passport from "passport";
 import ApiError from "../utils/ApiError.js";
-import { ROLES_RIGHTS, HTTP_CODES, AUTH_MESSAGES } from "../config/constants.js";
+import {
+  ROLES_RIGHTS,
+  HTTP_CODES,
+  AUTH_MESSAGES
+} from "../config/constants.js";
 
 const roleRights = new Map(Object.entries(ROLES_RIGHTS));
 
@@ -16,7 +20,7 @@ const verifyCallback =
     req.user = user;
 
     if (requiredRights.length) {
-      const userRights = roleRights.get(user.role);
+      const userRights = roleRights.get(user.role.toUpperCase());
       const hasRequiredRights = requiredRights.every(
         (requiredRight) => userRights.includes(requiredRight)
         // eslint-disable-next-line function-paren-newline

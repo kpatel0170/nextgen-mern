@@ -1,6 +1,6 @@
 import express from "express";
 import validate from "../middleware/validate.js";
-import userController from "../controller/user.js";
+import userController from "../controllers/user.js";
 import userValidation from "../validation/user.js";
 import authMiddleware from "../middleware/auth.js";
 

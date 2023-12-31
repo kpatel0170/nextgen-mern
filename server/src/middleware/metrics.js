@@ -1,3 +1,3 @@
-import promBundle from 'express-prom-bundle'
+import promBundle from "express-prom-bundle";
 
-export default promBundle({ includeMethod: true })
+export default promBundle({ includeMethod: true });
