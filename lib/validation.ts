@@ -6,7 +6,7 @@ export const passwordSchema = z
   .max(128, "'Password' must contain at most 128 characters")
   .regex(/^(?=.*[a-zA-Z])(?=.*\d).*$/, "'Password' must contain at least 1 letter and 1 number");
 
-export const registerSchema = z.object({ name: z.string(), email: z.string().email(), password: passwordSchema });
+export const registerSchema = z.object({ name: z.string().min(1, "'Name' is required"), email: z.string().email(), password: passwordSchema });
 export const loginSchema = z.object({ email: z.string().email(), password: passwordSchema });
 export const tokenSchema = z.object({ refreshToken: z.string() });
 export const forgotPasswordSchema = z.object({ email: z.string().email() });
